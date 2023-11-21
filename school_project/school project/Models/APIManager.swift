@@ -3,7 +3,7 @@
 //  school project
 //
 //  Created by BARTOSIK Patrick on 20/11/2023.
-//  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
+//  
 //
 import Foundation
 
@@ -22,7 +22,7 @@ extension String {
             let url = URL(string: "https://api.openai.com/v1/chat/completions")!
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
-            request.addValue("Bearer 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", forHTTPHeaderField: "Authorization")
+            request.addValue("Bearer key", forHTTPHeaderField: "Authorization")
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
             let prompt = "Generate 10 quiz questions with four multiple choice answers each and give me the correct one for each questions, in the category of \(category) and difficulty level \(difficulty)."
