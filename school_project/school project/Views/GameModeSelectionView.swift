@@ -7,104 +7,131 @@
 
 import SwiftUI
 
+// Énumération pour les modes de jeu
+enum GameMode {
+    case solo, multiWithBots
+}
+
 struct GameModeSelectionView: View {
     @State private var selectedMode: GameMode?
     @State private var showDifficultyOptions = false
+    @State private var selectedDifficulty: String?
+    @State private var showCategorySelection = false
+    @State private var isLoading = false
+    @State private var loadedQuestions: [QuizQuestion] = []
 
     var body: some View {
         VStack {
-            if showDifficultyOptions {
-                // Vue pour la sélection de la difficulté
-                DifficultySelectionView(selectedMode: selectedMode)
-            } else {
-                // Vue pour la sélection du mode de jeu
-                Text("Choisissez votre mode de jeu")
-                    .font(.headline)
-                    .padding()
-                HStack {
-                    VStack {
-                        Image("modeSolo")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .padding()
+            // Section Choix du Mode de Jeu
+            if !showDifficultyOptions && !showCategorySelection {
+                chooseGameModeSection
+            }
 
-                        Button("Je m'entraine") {
-                            selectedMode = .solo
-                            showDifficultyOptions = true
-                        }
-                        .buttonStyle(.borderedProminent)
-                    }
+            // Section Difficulté
+            if showDifficultyOptions && !showCategorySelection {
+                DifficultySelectionView(selectedMode: selectedMode, showCategorySelection: $showCategorySelection, selectedDifficulty: $selectedDifficulty)
+            }
 
-                    VStack {
-                        Image("modeMulti")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .padding()
-
-                        Button("Seul conte des bots") {
-                            selectedMode = .multiWithBots
-                            showDifficultyOptions = true
-                        }
-                        .buttonStyle(.borderedProminent)
-                    }
-                }
+            // Section Catégorie
+            if showCategorySelection {
+                CategorySelectionView(difficulty: selectedDifficulty ?? "")
             }
         }
         .padding()
+    }
+
+    // Vue pour la sélection du mode de jeu
+    var chooseGameModeSection: some View {
+        VStack {
+            Text("Choisissez votre mode de jeu")
+                .font(.headline)
+                .padding()
+
+            HStack {
+                gameModeButton(imageName: "modeSolo", buttonText: "Je m'entraine") {
+                    selectedMode = .solo
+                    showDifficultyOptions = true
+                }
+
+                gameModeButton(imageName: "modeMulti", buttonText: "Seul conte des bots") {
+                    selectedMode = .multiWithBots
+                    showDifficultyOptions = true
+                }
+            }
+        }
+    }
+
+    // Bouton pour choisir le mode de jeu
+    func gameModeButton(imageName: String, buttonText: String, action: @escaping () -> Void) -> some View {
+        VStack {
+            Image(imageName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .padding()
+
+            Button(buttonText, action: action)
+                .buttonStyle(.borderedProminent)
+        }
     }
 }
 
 // Vue pour la sélection de la difficulté
 struct DifficultySelectionView: View {
     var selectedMode: GameMode?
+    @Binding var showCategorySelection: Bool
+    @Binding var selectedDifficulty: String?
 
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                // Niveau Noob
+
                 DifficultyCard(
-                    imageName: "noobImage",
+                    imageName: "logo",
                     level: "Noob",
                     description: "Plongez dans l'univers du quiz avec des questions simples et ludiques. Idéal pour les débutants !",
                     action: {
-                        // Action pour Noob
+                        selectedDifficulty = "Noob"
+                        showCategorySelection = true
                     }
                 )
 
-                // Niveau Débutant
                 DifficultyCard(
-                    imageName: "beginnerImage",
+                    imageName: "logo",
                     level: "Débutant",
                     description: "Défiez-vous avec des questions légèrement plus complexes. Un pas de plus vers l'expertise !",
                     action: {
-                        // Action pour Débutant
+                        selectedDifficulty = "Débutant"
+                        showCategorySelection = true
                     }
                 )
                 
                 DifficultyCard(
-                    imageName: "beginnerImage",
+                    imageName: "logo",
                     level: "Intermédiaire",
                     description: "Préparez-vous à des questions corsées. Pour ceux qui aiment les défis sérieux !",
                     action: {
-                        // Action pour Débutant
+                        selectedDifficulty = "Intermédiaire"
+                        showCategorySelection = true
                     }
                 )
                 
                 DifficultyCard(
-                    imageName: "beginnerImage",
+                    imageName: "logo",
                     level: "Vétérent",
                     description: "Questions de haut niveau pour les experts. Seuls les meilleurs réussiront !",
                     action: {
-                        // Action pour Débutant
+                        selectedDifficulty = "Vétérent"
+                        showCategorySelection = true
                     }
                 )
                 
                 DifficultyCard(
-                    imageName: "beginnerImage",
+                    imageName: "logo",
                     level: "Puis de savoir",
                     description: "Le sommet du quiz. Pour les maîtres incontestés du savoir et de la réflexion.",
                     action: {
-                        // Action pour Débutant
+                        selectedDifficulty = "Puis de savoir"
+                        showCategorySelection = true
                     }
                 )
             }
@@ -112,6 +139,20 @@ struct DifficultySelectionView: View {
         }
     }
 }
+
+// Vue pour la sélection des catégories
+struct CategorySelectionView: View {
+    var difficulty: String
+
+    var body: some View {
+        List(QuizCategory.allCases, id: \.self) { category in
+            NavigationLink(destination: QuizView(difficulty: difficulty, category: category.rawValue)) {
+                Text(category.rawValue)
+            }
+        }
+    }
+}
+
 
 struct DifficultyCard: View {
     var imageName: String
@@ -144,13 +185,6 @@ struct DifficultyCard: View {
         .cornerRadius(12)
         .shadow(radius: 5)
     }
-}
-
-
-
-// Énumération pour les modes de jeu
-enum GameMode {
-    case solo, multiWithBots
 }
 
 struct GameModeSelectionView_Previews: PreviewProvider {

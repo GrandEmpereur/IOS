@@ -7,26 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A1BC9D12B0D038C006875F4 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1BC9D02B0D038C006875F4 /* LoadingView.swift */; };
 		6A441A8F2B0B8EE000BF77A2 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A441A8E2B0B8EE000BF77A2 /* Question.swift */; };
-		6A441A912B0B8EF700BF77A2 /* Quizz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A441A902B0B8EF700BF77A2 /* Quizz.swift */; };
 		6A441A932B0B8F0800BF77A2 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A441A922B0B8F0800BF77A2 /* Player.swift */; };
 		6A441A952B0B8F1900BF77A2 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A441A942B0B8F1900BF77A2 /* APIManager.swift */; };
 		6A441A9D2B0B8F6C00BF77A2 /* QuizController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A441A9C2B0B8F6C00BF77A2 /* QuizController.swift */; };
 		6A441AA12B0B903B00BF77A2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A441AA02B0B903B00BF77A2 /* HomeView.swift */; };
 		6A441AA82B0B96A500BF77A2 /* GameModeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A441AA72B0B96A500BF77A2 /* GameModeSelectionView.swift */; };
+		6A45D0102B0C9FAF006CDE15 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A45D00F2B0C9FAF006CDE15 /* Categories.swift */; };
+		6A45D0162B0CA72A006CDE15 /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A45D0152B0CA72A006CDE15 /* QuizView.swift */; };
+		6A45D0182B0CAFDD006CDE15 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A45D0172B0CAFDD006CDE15 /* ResultView.swift */; };
 		6A8496AF2B0B6CBC002E98D9 /* school_projectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8496AE2B0B6CBC002E98D9 /* school_projectApp.swift */; };
 		6A8496B32B0B6CC1002E98D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A8496B22B0B6CC1002E98D9 /* Assets.xcassets */; };
 		6A8496B72B0B6CC1002E98D9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A8496B62B0B6CC1002E98D9 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A1BC9D02B0D038C006875F4 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		6A441A8E2B0B8EE000BF77A2 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
-		6A441A902B0B8EF700BF77A2 /* Quizz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quizz.swift; sourceTree = "<group>"; };
 		6A441A922B0B8F0800BF77A2 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		6A441A942B0B8F1900BF77A2 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		6A441A9C2B0B8F6C00BF77A2 /* QuizController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizController.swift; sourceTree = "<group>"; };
 		6A441AA02B0B903B00BF77A2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		6A441AA72B0B96A500BF77A2 /* GameModeSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeSelectionView.swift; sourceTree = "<group>"; };
+		6A45D00F2B0C9FAF006CDE15 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		6A45D0152B0CA72A006CDE15 /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
+		6A45D0172B0CAFDD006CDE15 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		6A8496AB2B0B6CBC002E98D9 /* school project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "school project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A8496AE2B0B6CBC002E98D9 /* school_projectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = school_projectApp.swift; sourceTree = "<group>"; };
 		6A8496B22B0B6CC1002E98D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,9 +55,9 @@
 			isa = PBXGroup;
 			children = (
 				6A441A8E2B0B8EE000BF77A2 /* Question.swift */,
-				6A441A902B0B8EF700BF77A2 /* Quizz.swift */,
 				6A441A922B0B8F0800BF77A2 /* Player.swift */,
 				6A441A942B0B8F1900BF77A2 /* APIManager.swift */,
+				6A45D00F2B0C9FAF006CDE15 /* Categories.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -61,6 +67,9 @@
 			children = (
 				6A441AA02B0B903B00BF77A2 /* HomeView.swift */,
 				6A441AA72B0B96A500BF77A2 /* GameModeSelectionView.swift */,
+				6A45D0152B0CA72A006CDE15 /* QuizView.swift */,
+				6A45D0172B0CAFDD006CDE15 /* ResultView.swift */,
+				6A1BC9D02B0D038C006875F4 /* LoadingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -191,10 +200,13 @@
 			files = (
 				6A441A952B0B8F1900BF77A2 /* APIManager.swift in Sources */,
 				6A441A8F2B0B8EE000BF77A2 /* Question.swift in Sources */,
+				6A45D0182B0CAFDD006CDE15 /* ResultView.swift in Sources */,
+				6A1BC9D12B0D038C006875F4 /* LoadingView.swift in Sources */,
 				6A441A9D2B0B8F6C00BF77A2 /* QuizController.swift in Sources */,
-				6A441A912B0B8EF700BF77A2 /* Quizz.swift in Sources */,
 				6A441AA12B0B903B00BF77A2 /* HomeView.swift in Sources */,
+				6A45D0102B0C9FAF006CDE15 /* Categories.swift in Sources */,
 				6A441A932B0B8F0800BF77A2 /* Player.swift in Sources */,
+				6A45D0162B0CA72A006CDE15 /* QuizView.swift in Sources */,
 				6A441AA82B0B96A500BF77A2 /* GameModeSelectionView.swift in Sources */,
 				6A8496AF2B0B6CBC002E98D9 /* school_projectApp.swift in Sources */,
 			);
