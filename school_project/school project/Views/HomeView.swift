@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     // 1. Propriété pour gérer la navigation
-    @State private var navigateToGameMode = false
+    @State public var navigateToGameMode = false
 
     var body: some View {
         NavigationView {

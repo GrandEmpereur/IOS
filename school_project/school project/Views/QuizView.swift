@@ -11,11 +11,14 @@ struct QuizView: View {
     var difficulty: String
     var category: String
     @StateObject var quizController = QuizController()
+    @State private var showResultView = false
 
     var body: some View {
         VStack {
-            if quizController.questions.isEmpty {
-                Text("Chargement des questions...")
+            if quizController.isLoading {
+                LoadingView()
+            } else if quizController.questions.isEmpty {
+                Text("Aucune question disponible.")
             } else {
                     // Barre supérieure avec difficulté et catégorie
                     HStack {
@@ -48,12 +51,19 @@ struct QuizView: View {
                     if !quizController.isQuizCompleted {
                         responseButtonsGrid
                     } else {
-                        ResultView(correctAnswersCount: quizController.correctAnswersCount)
+                        let botScores = quizController.bots.map { $0.score }
+                        Button("Voir les Résultats") {
+                            showResultView = true
+                        }
+                        .sheet(isPresented: $showResultView) {
+                            ResultView(questions: quizController.questions, averageTimePerQuestion: quizController.averageTimePerQuestion, botScores: botScores)
+                        }
                     }
                     
                 Spacer()
             }
         }
+        .navigationBarBackButtonHidden()
         .onAppear {
             quizController.loadQuestions(category: category, difficulty: difficulty)
         }
