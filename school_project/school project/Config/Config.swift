@@ -8,4 +8,4 @@
 import Foundation
 
 
-var OPENAI_API_KEY="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"
+var OPENAI_API_KEY=""
