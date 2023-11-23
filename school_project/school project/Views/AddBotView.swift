@@ -7,25 +7,11 @@
 
 import SwiftUI
 
-// Vue pour la sélection des catégories
-struct CategorySelectionView: View {
-    var difficulty: String
-
-    var body: some View {
-        List(QuizCategory.allCases, id: \.self) { category in
-            NavigationLink(destination: QuizView(difficulty: difficulty, category: category.rawValue)) {
-                Text(category.rawValue)
-            }
-        }
-    }
-}
-
 struct AddBotView: View {
     @State private var numberOfBots: Int = 1
     @State private var selectedDifficulty: String = "Débutant"
     @State private var selectedCategory: String = "Histoire"
     let difficulties = ["Noob", "Débutant", "Intermédiaire", "Vétérent", "Puits de savoir"]
-    let categories = ["Histoire", "Science", "Mathématiques", "Littérature", "Géographie"]
     @State private var navigateToQuiz = false
     @EnvironmentObject var quizController: QuizController
 
@@ -60,8 +46,8 @@ struct AddBotView: View {
                 HStack {
                     Text("Sélectionnez votre catégorie : ")
                     Picker("Catégorie", selection: $selectedCategory) {
-                        ForEach(categories, id: \.self) { category in
-                            Text(category)
+                        ForEach(QuizCategory.allCases, id: \.self) { category in
+                            Text(category.rawValue).tag(category.rawValue)
                         }
                     }
                     .padding()

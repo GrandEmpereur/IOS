@@ -63,7 +63,6 @@ struct QuizView: View {
                 Spacer()
             }
         }
-        .navigationBarBackButtonHidden()
         .onAppear {
             quizController.loadQuestions(category: category, difficulty: difficulty)
         }

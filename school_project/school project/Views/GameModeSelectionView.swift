@@ -32,6 +32,7 @@ struct GameModeSelectionView: View {
             // Afficher AddBotView si showAddBotView est activé
             if showAddBotView {
                 AddBotView()
+                    .environmentObject(quizController)
             }
 
             // Section Difficulté

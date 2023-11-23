@@ -67,7 +67,6 @@ extension String {
             let lines = content.split(separator: "\n").map(String.init)
 
             for line in lines {
-                print(line)
                 if line.trimmingCharacters(in: .whitespaces).matches("^\\d+\\.\\s.*") ||
                     line.trimmingCharacters(in: .whitespaces).matches("^Q\\d+:\\s.*") ||
                     line.trimmingCharacters(in: .whitespaces).matches("^Question\\s\\d+:.*") {
