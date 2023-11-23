@@ -27,6 +27,7 @@ struct AddBotView: View {
     let difficulties = ["Noob", "Débutant", "Intermédiaire", "Vétérent", "Puits de savoir"]
     let categories = ["Histoire", "Science", "Mathématiques", "Littérature", "Géographie"]
     @State private var navigateToQuiz = false
+    @EnvironmentObject var quizController: QuizController
 
     var body: some View {
         NavigationView {
@@ -70,9 +71,8 @@ struct AddBotView: View {
 
                 // Navigation button
                 Button("Commencer le quiz") {
-                    navigateToQuiz = true
-                    let quizController = QuizController()
                     quizController.initializeBots(numberOfBots: numberOfBots, difficulty: selectedDifficulty)
+                    navigateToQuiz = true
                 }
                 .padding()
                 .background(Color.blue)
@@ -81,8 +81,7 @@ struct AddBotView: View {
                 .padding(.bottom)
 
                 // Navigation link
-                NavigationLink("", destination: QuizView(difficulty: selectedDifficulty, category: selectedCategory), isActive: $navigateToQuiz)
-                    .hidden()
+                NavigationLink("", destination: QuizView(difficulty: selectedDifficulty, category: selectedCategory).environmentObject(quizController), isActive: $navigateToQuiz)
             }
         }
     }
@@ -91,5 +90,6 @@ struct AddBotView: View {
 struct AddBotView_Previews: PreviewProvider {
     static var previews: some View {
         AddBotView()
+            .environmentObject(QuizController())
     }
 }

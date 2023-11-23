@@ -20,6 +20,7 @@ struct GameModeSelectionView: View {
     @State private var isLoading = false
     @State private var loadedQuestions: [QuizQuestion] = []
     @State private var showAddBotView = false
+    @EnvironmentObject var quizController: QuizController
 
     var body: some View {
         VStack {
@@ -84,6 +85,6 @@ struct GameModeSelectionView: View {
 struct GameModeSelectionView_Previews: PreviewProvider {
     static var previews: some View {
         GameModeSelectionView()
+            .environmentObject(QuizController())
     }
 }
-

@@ -14,10 +14,36 @@ struct Bot {
     
     // Générer une réponse aléatoire
     func generateRandomAnswer(for question: QuizQuestion) -> Int {
-        // Implémentez la logique en fonction du niveau de difficulté du bot
-        return Int.random(in: 0..<question.answers.count)
+        // Plus le niveau de difficulté est élevé, plus la probabilité de choisir la bonne réponse est grande
+        let probabilityOfCorrectAnswer: Double
+
+        switch difficultyLevel {
+        case "Noob":
+            probabilityOfCorrectAnswer = 0.25 // 25% de chance de choisir la bonne réponse
+        case "Débutant":
+            probabilityOfCorrectAnswer = 0.4 // 40% de chance
+        case "Intermédiaire":
+            probabilityOfCorrectAnswer = 0.6 // 60% de chance
+        case "Vétérent":
+            probabilityOfCorrectAnswer = 0.8 // 80% de chance
+        case "Puits de savoir":
+            probabilityOfCorrectAnswer = 0.95 // 95% de chance
+        default:
+            probabilityOfCorrectAnswer = 0.25 // Valeur par défaut
+        }
+
+        // Déterminer si le bot choisit la bonne réponse
+        if Double.random(in: 0...1) < probabilityOfCorrectAnswer {
+            return question.correctAnswerIndex
+        } else {
+            // Choisir une réponse incorrecte au hasard
+            var incorrectAnswers = Array(0..<question.answers.count)
+            incorrectAnswers.removeAll(where: { $0 == question.correctAnswerIndex })
+            return incorrectAnswers.randomElement() ?? 0
+        }
     }
 }
+
 
 class QuizController: ObservableObject {
     @Published var questions: [QuizQuestion] = []
@@ -31,7 +57,7 @@ class QuizController: ObservableObject {
     @Published var isLoading = false
     @Published var totalElapsedTime = 0
     @Published var averageTimePerQuestion: Double = 0.0
-    var bots: [Bot] = []
+    @Published var bots: [Bot] = []
 
     // CALL API A CHAT GPT
     func loadQuestions(category: String, difficulty: String) {
@@ -60,6 +86,8 @@ class QuizController: ObservableObject {
         if index == questions[currentQuestionIndex].correctAnswerIndex {
             correctAnswersCount += 1
         }
+        // Traiter les réponses des bots pour la question actuelle
+        handleBotResponses(currentQuestion: questions[currentQuestionIndex])
         updateElapsedTime()
         nextQuestion()
     }
@@ -111,7 +139,7 @@ class QuizController: ObservableObject {
         for index in bots.indices {
             let botAnswer = bots[index].generateRandomAnswer(for: currentQuestion)
             if botAnswer == currentQuestion.correctAnswerIndex {
-                bots[index].score += 1 // Augmenter le score si la réponse est correcte
+                bots[index].score += 1
             }
         }
     }

@@ -10,7 +10,7 @@ import SwiftUI
 struct QuizView: View {
     var difficulty: String
     var category: String
-    @StateObject var quizController = QuizController()
+    @EnvironmentObject var quizController: QuizController
     @State private var showResultView = false
 
     var body: some View {
@@ -98,7 +98,6 @@ struct QuizView: View {
 struct QuizView_Previews: PreviewProvider {
     static var previews: some View {
         QuizView(difficulty: "Débutant", category: "Histoire")
+            .environmentObject(QuizController())
     }
 }
-
-

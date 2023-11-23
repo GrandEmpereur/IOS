@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     // 1. Propriété pour gérer la navigation
     @State public var navigateToGameMode = false
+    @StateObject var quizController = QuizController()
 
     var body: some View {
         NavigationView {
@@ -41,9 +42,9 @@ struct HomeView: View {
                 }
 
                 // 5. Navigation vers la sélection de mode de jeu
-                NavigationLink(destination: GameModeSelectionView(), isActive: $navigateToGameMode) {
-                    EmptyView()
-                }
+                NavigationLink(destination: GameModeSelectionView().environmentObject(quizController), isActive: $navigateToGameMode) {
+                           EmptyView()
+                       }
             }
             .padding()
         }
@@ -53,5 +54,6 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+            .environmentObject(QuizController())
     }
 }

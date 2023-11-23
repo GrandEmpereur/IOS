@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ResultView: View {
+    @EnvironmentObject var quizController: QuizController
     var questions: [QuizQuestion]
     var averageTimePerQuestion: Double
     var botScores: [Int]
@@ -15,12 +16,14 @@ struct ResultView: View {
     var body: some View {
         ScrollView {
             VStack {
+                // Affichage des résultats de l'utilisateur
                 Text("Résultats du Quiz")
-                Text("Votre scord est de : \(calculateScore()) / 10")
+                Text("Votre score est de : \(calculateScore()) / 10")
                     .padding()
                 Text("Temps moyen par question: \(String(format: "%.2f", averageTimePerQuestion)) secondes")
                     .padding()
-                
+
+                // Détails des questions et réponses
                 ForEach(0..<questions.count, id: \.self) { index in
                     let question = questions[index]
                     let isCorrect = question.correctAnswerIndex == question.userAnswerIndex
@@ -39,20 +42,23 @@ struct ResultView: View {
                                 .padding()
                                 .border(Color.green, width: 2)
                         }
-                        
                         Text("Explication: \(explain)")
                             .padding()
                     }
                     .padding()
-                    
-                    if !botScores.isEmpty {
-                        Text("Scores des Bots")
-                            .fontWeight(.bold)
-                        ForEach(botScores.indices, id: \.self) { index in
-                            Text("Bot \(index + 1): \(botScores[index]) points")
-                        }
-                    }
+                }
 
+                // Affichage des scores des bots
+                if !botScores.isEmpty {
+                    Text("Scores des Bots Face A Vous")
+                        .fontWeight(.bold)
+                        .padding()
+                    Text("Votre score : \(calculateScore()) points")
+                        .padding(.bottom, 2)
+                    ForEach(botScores.indices, id: \.self) { index in
+                        Text("Bot \(index + 1): \(botScores[index]) points")
+                            .padding(.bottom, 2)
+                    }
                 }
             }
         }
@@ -70,5 +76,6 @@ struct ResultView_Previews: PreviewProvider {
             QuizQuestion(question: "Quelle est la capitale de la France ?", answers: ["Paris", "Lyon", "Marseille", "Bordeaux"], correctAnswerIndex: 0, explain: "Paris est la capitale de la France.", userAnswerIndex: 1),
             QuizQuestion(question: "Qui a peint la Joconde ?", answers: ["Vincent Van Gogh", "Pablo Picasso", "Leonardo Da Vinci", "Claude Monet"], correctAnswerIndex: 2, explain: "La Joconde a été peinte par Leonardo Da Vinci.", userAnswerIndex: 2)
         ], averageTimePerQuestion: 5.0, botScores: [3, 4, 5])
+        .environmentObject(QuizController())
     }
 }

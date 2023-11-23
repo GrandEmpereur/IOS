@@ -21,12 +21,10 @@ extension String {
             let url = URL(string: "https://api.openai.com/v1/chat/completions")!
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
-            request.addValue("Bearer ", forHTTPHeaderField: "Authorization")
+            request.addValue("Bearer \(OPENAI_API_KEY )", forHTTPHeaderField: "Authorization")
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
-            let prompt = "Please generate 10 quiz questions in the category of \(category). Each question should have four multiple-choice answers. The difficulty level is \(difficulty). The questions should reflect the difficulty level, ranging from very simple for 'Noob' to advanced and complex for 'Puits de savoir' (all difficulty levels are [Noob, Débutant, Intermédiaire, Vétérent, Puits de savoir]). Include the correct answer for each question. For the correct answer, I would like to have the explanation of each correct answer in the format like this: 'explain: xxxxxxx'"
-
-
+            let prompt = "Please generate 10 quiz questions in the category of \(category). Each question should have four multiple-choice answers. The difficulty level is \(difficulty). The questions should reflect the difficulty level, ranging from very simple for 'Noob' to advanced and complex for 'Puits de savoir' (all difficulty levels are [Noob, Débutant, Intermédiaire, Vétérent, Puits de savoir]). For each question, include the correct answer and provide an explanation for why it is the correct answer. the data return woul like to be like this : 'Correct answer: c) Angleterre' and 'Explanation: '"
 
             let body: [String: Any] = [
                 "model": "gpt-3.5-turbo",
@@ -83,11 +81,15 @@ extension String {
                 }else if line.trimmingCharacters(in: .whitespaces).matches("^[abcd]\\)\\s.*") ||
                          line.trimmingCharacters(in: .whitespaces).matches("^[ABCD]\\)\\s.*") {
                     currentAnswers.append(line.trimmingCharacters(in: .whitespaces))
-                } else if line.contains("Correct answer:") || line.contains("Correct Answer:")  ||
+                } else if line.contains("Correct answer:") ||
+                            line.contains("Correct Answer:")  ||
+                            line.contains("correct answer:")  ||
+                            line.contains("Answer:")  ||
                           line.contains("Réponse:") {
                     correctAnswer = line.components(separatedBy: ":").last?.trimmingCharacters(in: .whitespaces)
                 }else if line.contains("Explanation: ") ||
                          line.contains("Explain: ") ||
+                         line.contains("explain: ") ||
                          line.contains("Explication:") {
                     explain = line.components(separatedBy: ":").last?.trimmingCharacters(in: .whitespaces)
                 }
